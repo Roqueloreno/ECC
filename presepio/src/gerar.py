@@ -33,7 +33,7 @@ MODO_ESTRELA = 'janela'   # 'janela' = pele fina so na estrela (some apagada) | 
 PELE_JANELA  = 0.4
 PASSO_ESTRELA = 9.0       # mm ao longo do anel
 PASSO_JANELA_BORDA = 18.0 # janelas na borda externa (luz saindo para fora)
-IMA_D, IMA_H = 8.0, 3.0           # PROVISORIO: confirmar o ima
+IMA_D, IMA_H = 3.95, 1.89          # imas do cliente (bolso: +0.2 no diametro, +0.2 na altura)
 CAIXA_PILHA = (28.55, 18.50, 12.35)  # caixa de pilha do fio anjo (medida pelo cliente, C x L x A)
 STEP = 0.2   # = altura de camada; chanfro em escada alinhado com as camadas
 

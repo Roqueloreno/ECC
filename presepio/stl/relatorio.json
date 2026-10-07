@@ -57,7 +57,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 51.05,
+   "volume_cm3": 51.33,
    "dims_mm": [
     80.0,
     80.0,
@@ -84,7 +84,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 69.5,
+   "volume_cm3": 69.92,
    "dims_mm": [
     80.0,
     80.0,
@@ -130,7 +130,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 32.23,
+   "volume_cm3": 32.79,
    "dims_mm": [
     124.0,
     66.0,
