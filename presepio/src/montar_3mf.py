@@ -90,6 +90,8 @@ def montar(versao):
         caixas = []
         for (f, n, fil, x, y, r) in itens:
             m = trimesh.load(os.path.join(STL, f + '.stl'), process=False)
+            m.merge_vertices()                           # STL nao compartilha vertices: o Bambu acusaria non-manifold
+            assert m.is_watertight, f + ' nao esta fechado'
             if r: m.apply_transform(trimesh.transformations.rotation_matrix(np.radians(r), [0, 0, 1]))
             b = m.bounds; c = (b[0] + b[1]) / 2
             m.apply_translation(-c)                      # malha centrada (padrao Bambu)
