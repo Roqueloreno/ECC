@@ -23,10 +23,10 @@ PERFIL = {
 # (arquivo STL, nome no Bambu, filamento 1=marfim 2=dourado, x, y, rotacao_z)
 PLACAS = {
     'SEM_LED': [
-        ('01 TESTE ENCAIXE DO COPO (imprima antes)', [
-            ('TESTE_ENCAIXE_COPO_25', 'TESTE_COPO_0.25', 1, 128, 168, 0),
-            ('TESTE_ENCAIXE_COPO_15', 'TESTE_COPO_0.15', 1, 52, 70, 0),
-            ('TESTE_ENCAIXE_COPO_35', 'TESTE_COPO_0.35', 1, 204, 70, 0)]),
+        ('01 TESTES - assento do copo + segmento de luz (imprima antes)', [
+            ('TESTE_ASSENTO_COPO', 'TESTE_ASSENTO_COPO', 1, 70, 128, 0),
+            ('TESTE_LUZ_SEGMENTO_FRENTE', 'TESTE_LUZ_FRENTE', 1, 160, 128, 0),
+            ('TESTE_LUZ_SEGMENTO_VERSO', 'TESTE_LUZ_VERSO', 1, 205, 128, 0)]),
         ('02 ARCO FRENTE - marfim', [('SEM_LED_01_ARCO_FRENTE', 'ARCO_FRENTE', 1, 128, 128, 0)]),
         ('03 ARCO VERSO - marfim', [('SEM_LED_01_ARCO_VERSO', 'ARCO_VERSO', 1, 128, 128, 0)]),
         ('04 BERCO + LACOS + NOS + PINOS - marfim', [

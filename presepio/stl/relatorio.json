@@ -5,7 +5,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 26,
-   "volume_cm3": 27.0,
+   "volume_cm3": 26.97,
    "dims_mm": [
     234.0,
     206.0,
@@ -18,7 +18,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 26,
-   "volume_cm3": 27.0,
+   "volume_cm3": 26.97,
    "dims_mm": [
     234.0,
     206.0,
@@ -31,7 +31,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 24,
-   "volume_cm3": 25.08,
+   "volume_cm3": 24.92,
    "dims_mm": [
     234.0,
     206.0,
@@ -44,7 +44,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 24,
-   "volume_cm3": 25.08,
+   "volume_cm3": 24.92,
    "dims_mm": [
     234.0,
     206.0,
@@ -57,13 +57,13 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 53.97,
+   "volume_cm3": 51.89,
    "dims_mm": [
     80.0,
     80.0,
-    15.2
+    14.5
    ],
-   "altura_mm": 15.21,
+   "altura_mm": 14.47,
    "y_base": -102.0
   },
   {
@@ -84,19 +84,19 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 65.75,
+   "volume_cm3": 62.44,
    "dims_mm": [
     80.0,
     80.0,
-    21.1
+    20.1
    ],
    "caixa_pilha_provisoria": [
     38.0,
     26.0,
     12.0
    ],
-   "altura_mm": 21.1,
-   "y_base": -107.89
+   "altura_mm": 20.1,
+   "y_base": -107.63
   },
   {
    "arquivo": "COMUM_ARGOLA_DOURADA_v2.stl",
@@ -116,7 +116,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 0.12,
+   "volume_cm3": 0.11,
    "dims_mm": [
     6.0,
     6.0,
@@ -138,52 +138,52 @@
    ]
   },
   {
-   "arquivo": "TESTE_ENCAIXE_COPO_15.stl",
+   "arquivo": "TESTE_ASSENTO_COPO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 1,
-   "volume_cm3": 12.32,
+   "genus": 0,
+   "volume_cm3": 26.42,
    "dims_mm": [
-    68.0,
-    68.0,
-    10.4
+    74.0,
+    74.0,
+    9.8
    ],
-   "interferencia_mm": 0.15
+   "obs": "copo X81 Y81 Z90; folga 0.20; chapa 0.5"
   },
   {
-   "arquivo": "TESTE_ENCAIXE_COPO_25.stl",
+   "arquivo": "TESTE_LUZ_SEGMENTO_FRENTE.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 1,
-   "volume_cm3": 12.32,
+   "genus": 2,
+   "volume_cm3": 1.66,
    "dims_mm": [
-    68.0,
-    68.0,
-    10.4
+    26.0,
+    92.0,
+    3.0
    ],
-   "interferencia_mm": 0.25
+   "obs": "metade de cima: estrela-janela (pele 0.4) / metade de baixo: estrela vazada"
   },
   {
-   "arquivo": "TESTE_ENCAIXE_COPO_35.stl",
+   "arquivo": "TESTE_LUZ_SEGMENTO_VERSO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 1,
-   "volume_cm3": 12.33,
+   "genus": 2,
+   "volume_cm3": 1.66,
    "dims_mm": [
-    68.0,
-    68.0,
-    10.4
+    26.0,
+    92.0,
+    3.0
    ],
-   "interferencia_mm": 0.35
+   "obs": "metade de cima: estrela-janela (pele 0.4) / metade de baixo: estrela vazada"
   }
  ],
  "verificacoes": {
   "colisao_copo_arco_SEM_LED_mm2": 0.0,
   "colisao_copo_arco_LED_mm2": 0.0,
-  "y_piso_copo": -92.79,
-  "y_topo_copo": -7.79,
-  "y_topo_berco": -86.79,
-  "topo_da_fenda": -93.99,
+  "y_piso_copo": -92.03,
+  "y_topo_copo": -2.03,
+  "y_topo_berco": -87.53,
+  "topo_da_fenda": -93.73,
   "interf_berco_SEM_LED_F_mm3": 0.0,
   "interf_berco_SEM_LED_V_mm3": 0.0,
   "interf_berco_LED_F_mm3": 0.0,

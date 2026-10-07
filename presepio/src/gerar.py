@@ -16,17 +16,23 @@ CH_EXT     = 0.6     # chanfro da face de vitrine (sem LED)
 CH_EXT_LED = 0.4     # chanfro da face de vitrine (LED, impresso na mesa)
 CH_COLA    = 0.4     # chanfro da borda de colagem (forma o friso em V)
 FILETE     = dict(recuo=0.9, largura=0.7, prof=0.4, largura_min=4.4)
-D_CAVILHA, P_CAVILHA = 2.0, 2.0   # furo p/ cavilha de filamento 1.75 mm
-FOLGA_ARGOLA, ESP_ARGOLA = 0.15, 4.0
-# berco / encaixe do copo (pe do copo: D de raio 30.0, chanfro reto em x=28.5, ~4.7 mm de altura)
-R_PE, X_CHANFRO_PE = 30.0, 28.5
-FOLGA_PE   = 0.20    # folga radial do bolso D
-INTERF     = 0.25    # interferencia da trava (teste: 0.15 / 0.25 / 0.35)
-ROT_CHANFRO = 0.0    # graus; 0 = chanfro do pe virado para +X (direita), igual a base original
-PROF_BOLSO = 6.0
+# folgas validadas no teste de 07/10: furo +0.3 nao entrou, +0.5 (0.25 radial) entrou
+D_CAVILHA, P_CAVILHA = 2.25, 2.0  # furo p/ cavilha de filamento 1.75 mm (0.25 radial)
+FOLGA_ARGOLA, ESP_ARGOLA = 0.25, 4.0
+D_PINO = 2.9                      # haste do pino do laco (furos de 3.4)
+# berco / assento do copo: vaso "Copo luminoso" escalado X81 Y81 Z90 (perfil em copo_perfil.json)
+COPO = json.load(open(os.path.join(os.path.dirname(__file__), 'copo_perfil.json')))
+ALT_ASSENTO  = 5.0    # altura do abraco (a arte do copo comeca em ~5.5 mm)
+FOLGA_ASSENTO = 0.20  # folga radial no cone (abraco leve)
+CHAPA_COPO   = 0.5    # chapinha metalica adesiva sob o copo (0 = sem chapa)
+IMAS_ASSENTO = [(-10.0, -9.0), (10.0, -9.0)]   # imas no piso do assento (lado da frente: fora da fenda e do compartimento)
 R_BERCO    = 40.0
-FOLGA_FENDA = 0.15   # por lado
-DEDOS_ANG  = (30.0, 150.0, 270.0)
+FOLGA_FENDA = 0.25   # por lado
+# luz (versao LED)
+MODO_ESTRELA = 'janela'   # 'janela' = pele fina so na estrela (some apagada) | 'furo' = vazada
+PELE_JANELA  = 0.4
+PASSO_ESTRELA = 9.0       # mm ao longo do anel
+PASSO_JANELA_BORDA = 18.0 # janelas na borda externa (luz saindo para fora)
 IMA_D, IMA_H = 8.0, 3.0           # PROVISORIO: confirmar o ima
 CAIXA_PILHA = (38.0, 26.0, 12.0)  # PROVISORIO: medir a caixa de pilha do fio (C x L x A)
 STEP = 0.2   # = altura de camada; chanfro em escada alinhado com as camadas
@@ -83,7 +89,50 @@ def pontos_cavilha(art, led, excluir):
         if (seguro ^ circ(x, y, 0.2)).area() > 0.02: ok.append((x, y))
     return ok
 
-def metade(led, frente):
+def estrela4(x, y, R, r, giro=0.0):
+    pts = []
+    for i in range(8):
+        a = math.radians(90 + giro + i * 45); rr = R if i % 2 == 0 else r
+        pts.append((x + rr * math.cos(a), y + rr * math.sin(a)))
+    return CrossSection([pts])
+
+def pontos_anel(a, b, passo, fase=0.0):
+    t = np.linspace(0, 2 * math.pi, 4000)
+    c = P['ELIPSE_C']; x = a * np.cos(t); y = c[1] + b * np.sin(t)
+    s = np.r_[0, np.cumsum(np.hypot(np.diff(x), np.diff(y)))]
+    out = []
+    for d in np.arange(fase, s[-1], passo):
+        i = np.searchsorted(s, d); i = min(i, len(t) - 1)
+        nx, ny = math.cos(t[i]) / a, math.sin(t[i]) / b; n = math.hypot(nx, ny)
+        out.append((x[i], y[i], nx / n, ny / n))
+    return out
+
+def zona_livre(x, y):
+    if abs(x) < 46 and y < -60: return False          # dentro/junto do berco
+    if abs(x) < 52 and y > 50: return False           # atras do laco
+    return True
+
+def luz_led(misto=False):
+    ea, eb = P['ELIPSE_A'], P['ELIPSE_B']; w = P['ANEL_LED']
+    jan_e, fur_e = [], []
+    for k, (x, y, nx, ny) in enumerate(pontos_anel(ea - w / 2, eb - w / 2, PASSO_ESTRELA)):
+        if not zona_livre(x, y): continue
+        R = 2.2 if k % 2 == 0 else 1.6
+        st = estrela4(x, y, R, R * 0.36, 0 if k % 2 == 0 else 45)
+        modo = ('janela' if y > 0 else 'furo') if misto else MODO_ESTRELA
+        (jan_e if modo == 'janela' else fur_e).append(st)
+    jb = []
+    for (x, y, nx, ny) in pontos_anel(ea - 0.6, eb - 0.6, PASSO_JANELA_BORDA, PASSO_JANELA_BORDA / 2):
+        if not zona_livre(x, y) or y < -68: continue
+        tx, ty = -ny, nx; L, Wd = 3.2, 2.4
+        cx, cy = x - nx * 0.6, y - ny * 0.6
+        q = [(cx + tx * Wd / 2 * sx + nx * L / 2 * sy, cy + ty * Wd / 2 * sx + ny * L / 2 * sy) for sx, sy in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+        ar = sum(q[i][0] * q[(i + 1) % 4][1] - q[(i + 1) % 4][0] * q[i][1] for i in range(4))
+        jb.append(CrossSection([q if ar > 0 else q[::-1]]))
+    f = lambda L: CrossSection.batch_boolean(L, OpType.Add) if L else None
+    return f(jan_e), f(fur_e), f(jb)
+
+def metade(led, frente, misto=False):
     art = arte_base(MD, led)
     t = T_METADE
     ce = CH_EXT_LED if led else CH_EXT
@@ -96,6 +145,10 @@ def metade(led, frente):
         anel = (elipse(ea, eb) - elipse(ea, eb).offset(-P['ANEL_LED'])).offset(0.6)
         anel = anel - rect(-P['BERCO_X'], -120, P['BERCO_X'], -88)
         m = m - ext(cam, -1, t - PELE_LED)
+        est_j, est_f, jan = luz_led(misto)
+        if est_j is not None: m = m - ext(est_j, t - PELE_LED - 0.05, t - PELE_JANELA)
+        if est_f is not None: m = m - ext(est_f, -1, t + 1)
+        if jan is not None and not jan.is_empty(): m = m - ext(jan, -1, 1.2)
         excl = anel + cam
     g = filete(art, excl)
     m = m - ext(g, t - FILETE['prof'], t + 1)
@@ -140,34 +193,25 @@ def fenda_2d():
     return f + rect(-R_BERCO - 2, -130, R_BERCO + 2, P['SOLA_Y'][0] + 0.3)
 
 F2 = fenda_2d()
-pts = np.vstack([np.array(p) for p in (F2 ^ rect(-R_PE - 0.5, -130, R_PE + 0.5, -60)).to_polygons()])
+pts = np.vstack([np.array(p) for p in (F2 ^ rect(-31.5, -130, 31.5, -60)).to_polygons()])
 S_TOPO = float(pts[:, 1].max())
 Y_PISO = S_TOPO + 1.2
-Y_TOPO = Y_PISO + PROF_BOLSO
+Y_TOPO = Y_PISO + ALT_ASSENTO
 
-def bolso_D():
-    c = CrossSection.circle(R_PE + FOLGA_PE, 256) ^ rect(-50, -50, X_CHANFRO_PE + FOLGA_PE, 50)
-    return c.rotate(ROT_CHANFRO)
+def r_copo(z):
+    return float(np.interp(z, COPO['z'], COPO['r_max']))
 
-def dedos_e_valas(topo):
-    """Valas (removidas) e dedos flexiveis com trava (adicionados), coords locais do disco (u,v,w)."""
-    r_in = R_PE + FOLGA_PE; t_d = 1.2; folga_vala = 0.8
-    w_raiz = topo - 9.0
-    valas, dedos = [], []
-    for a in DEDOS_ANG:
-        a = a + ROT_CHANFRO
-        larg = 20.0; extra = math.degrees(folga_vala / r_in)
-        prof_v = CrossSection([[(r_in - 0.8, w_raiz), (r_in + t_d + folga_vala, w_raiz),
-                                (r_in + t_d + folga_vala, topo + 1), (r_in - 0.8, topo + 1)]])
-        v = Manifold.revolve(prof_v, 96, larg + 2 * extra).rotate([0, 0, a - larg / 2 - extra])
-        valas.append(v)
-        r_l = R_PE - INTERF
-        prof_d = CrossSection([[(r_in, w_raiz), (r_in + t_d, w_raiz), (r_in + t_d, topo),
-                                (r_in, topo), (r_in, topo - 0.05), (r_l, topo - 0.45),
-                                (r_l, topo - 0.65), (r_in, topo - 1.1)]])
-        d = Manifold.revolve(prof_d, 96, larg).rotate([0, 0, a - larg / 2])
-        dedos.append(d)
-    return valas, dedos
+def assento(topo):
+    """Cone que copia a base do copo (+ folga), do piso ate o topo do disco. Coords locais (u,v,w)."""
+    piso = topo - ALT_ASSENTO
+    ch = 0.6
+    prof = [(r_copo(max(zz - CHAPA_COPO, 0)) + FOLGA_ASSENTO, piso + zz)
+            for zz in np.arange(0, ALT_ASSENTO - ch + 0.001, 0.25)]
+    rt = prof[-1][0]
+    prof += [(rt + ch, topo), (rt + ch, topo + 1), (0, topo + 1), (0, piso)]
+    cone = Manifold.revolve(CrossSection([prof]), 256)
+    imas = [Manifold.cylinder(IMA_H + 0.25, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, piso - IMA_H - 0.2]) for (u, v) in IMAS_ASSENTO]
+    return cone, imas
 
 def disco_base(y_b, y_t):
     h = y_t - y_b
@@ -192,12 +236,9 @@ def berco(led):
     h = Y_TOPO - y_b
     d = disco_base(y_b, Y_TOPO)
     d = d - fenda_local(y_b)
-    bol = Manifold.extrude(bolso_D(), PROF_BOLSO + 1).translate([0, 0, h - PROF_BOLSO])
-    lead = Manifold.extrude(bolso_D().offset(0.5), 0.5).translate([0, 0, h - 0.5])
-    d = d - bol - lead
-    valas, dedos = dedos_e_valas(h)
-    for v in valas: d = d - v
-    for k in dedos: d = d + k
+    cone, imas_a = assento(h)
+    d = d - cone
+    for k in imas_a: d = d - k
     imas = [(0, -24), (0, 24)] if not led else [(0, -24), (28, 18), (-28, 18)]
     for (u, v) in imas: d = d - ima(u, v)
     extra = {}
@@ -229,7 +270,7 @@ for led in (False, True):
 arg = argola_original(MD)
 corte = Manifold.cube([40, 40, 10]).translate([-20, P['ARGOLA_CORTE'] - 40, -1])
 save(arg - corte, 'COMUM_ARGOLA_DOURADA_v2', dict(cor='dourado'))
-pino = Manifold.cylinder(2.0, 3.0, 3.0, 48) + Manifold.cylinder(2.0 + 8.0, 1.55, 1.55, 32)
+pino = Manifold.cylinder(2.0, 3.0, 3.0, 48) + Manifold.cylinder(2.0 + 8.0, D_PINO / 2, D_PINO / 2, 32)
 save(pino, 'COMUM_PINO_LACO', dict(qtd_sem_led=2, qtd_led=1))
 # plinto opcional (bancada)
 L, W, H = 124.0, 66.0, 6.0
@@ -242,37 +283,30 @@ for (u, v) in [(0, -24), (0, 24), (28, 18), (-28, 18)]:
 save(pl, 'COMUM_PLINTO_BANCADA_opcional')
 
 # ---------------- testes ----------------
-for i, it in enumerate((0.15, 0.25, 0.35)):
-    INTERF = it
-    h = 10.4
-    anel = Manifold.cylinder(h, 34.0, 34.0, 256)
-    anel = anel - Manifold.extrude(bolso_D(), PROF_BOLSO + 1).translate([0, 0, h - PROF_BOLSO])
-    anel = anel - Manifold.cylinder(h, 24, 24, 128).translate([0, 0, -1])   # economia
-    valas, dedos = dedos_e_valas(h)
-    for v in valas: anel = anel - v
-    for k in dedos: anel = anel + k
-    for j in range(i + 1):
-        anel = anel - Manifold.cube([1.2, 3, h + 2]).translate([-33.0 + j * 2.2 - 0.6, -34.5, -1]).rotate([0, 0, 180])
-    save(anel, f'TESTE_ENCAIXE_COPO_{int(it*100):02d}', dict(interferencia_mm=it))
-INTERF = 0.25
+h = ALT_ASSENTO + 1.2 + IMA_H + 0.6
+anel = Manifold.cylinder(h, 37.0, 37.0, 256)
+cone, imas_a = assento(h)
+anel = anel - cone
+for k in imas_a: anel = anel - k
+save(anel, 'TESTE_ASSENTO_COPO', dict(obs='copo X81 Y81 Z90; folga %.2f; chapa %.1f' % (FOLGA_ASSENTO, CHAPA_COPO)))
+# segmento real do anel LED (lado esquerdo): estrelas-janela em cima (y>0), estrelas vazadas embaixo
+caixa = Manifold.cube([30, 92, 20]).translate([-121, -46, -10])
+for frente in (True, False):
+    asm, _, _ = metade(True, frente, misto=True)
+    seg = asm ^ caixa
+    save(para_impressao(seg, True, frente), f'TESTE_LUZ_SEGMENTO_{"FRENTE" if frente else "VERSO"}',
+         dict(obs='metade de cima: estrela-janela (pele 0.4) / metade de baixo: estrela vazada'))
 
 # ---------------- verificacoes de montagem ----------------
-def perfil_copo():
-    from arte2d import carregar_malha
-    c = carregar_malha(MD + '/22_COPO_ADAPTA_FUNDO_M4_14.model')
-    zs = np.arange(0.0, 85.0, 0.5); rs = []
-    for z in zs:
-        pol = c.slice(min(z + 0.01, 84.9)).to_polygons()
-        rs.append(max(np.hypot(*(np.array(p) - [0, 0]).T).max() for p in pol) if pol else 0)
-    return zs, np.array(rs)
-zs, rs = perfil_copo()
-pts = [(r, Y_PISO + z) for z, r in zip(zs, rs)] + [(-r, Y_PISO + z) for z, r in zip(zs[::-1], rs[::-1])]
+zs = np.array(COPO['z']); rs = np.array([r if r else 0 for r in COPO['r_max']])
+yb_copo = Y_PISO + CHAPA_COPO
+pts = [(r, yb_copo + z) for z, r in zip(zs, rs)] + [(-r, yb_copo + z) for z, r in zip(zs[::-1], rs[::-1])]
 sil = CrossSection([pts]).offset(1.0)
 chk = {}
 for led in (False, True):
-    inter = (ARTE[led] ^ sil) - rect(-60, -130, 60, Y_PISO + 0.5)
+    inter = (ARTE[led] ^ sil) - rect(-60, -130, 60, Y_PISO + ALT_ASSENTO)
     chk['colisao_copo_arco_' + ('LED' if led else 'SEM_LED') + '_mm2'] = round(inter.area(), 3)
-chk['y_piso_copo'] = round(Y_PISO, 2); chk['y_topo_copo'] = round(Y_PISO + 85.0, 2)
+chk['y_piso_copo'] = round(yb_copo, 2); chk['y_topo_copo'] = round(yb_copo + zs[-1], 2)
 chk['y_topo_berco'] = round(Y_TOPO, 2); chk['topo_da_fenda'] = round(S_TOPO, 2)
 # arco dentro da fenda: interferencia 3D
 for led in (False, True):
