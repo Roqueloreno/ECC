@@ -56,6 +56,7 @@ for nome, itens in PLACAS['SEM_LED']:
         nome = '04 BERCO LED + TAMPA + LACOS + NOS + PINOS - marfim'
     led.append((nome, novos))
 PLACAS['LED'] = led
+PLACAS['TESTES'] = [PLACAS['SEM_LED'][0]]
 
 def cabecalho():
     return ('<?xml version="1.0" encoding="UTF-8"?>\n<model unit="millimeter" xml:lang="en-US" '
@@ -147,6 +148,6 @@ def montar(versao):
     return checagem
 
 os.makedirs(OUT, exist_ok=True)
-for v in ('SEM_LED', 'LED'):
+for v in ('SEM_LED', 'LED', 'TESTES'):
     ch = montar(v)
     print(v, 'OK' if not ch else ch)
