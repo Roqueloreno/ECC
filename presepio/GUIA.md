@@ -19,19 +19,18 @@ Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,
 
 | Teste | Resultado | Mudança |
 |---|---|---|
-| Trava do copo 0,25 | Não funcionou: o copo novo é uma esfera cortada, sem pé, e o bojo encosta antes | Os 3 dedos saíram. Entrou um **assento cônico de 5 mm** que copia a base do vaso (X81 Y81 Z90) com folga de 0,2. A arte do vaso começa a ~5,5 mm, então nada fica coberto |
-| Retenção do copo | — | **2 ímãs** no piso do assento + **chapinha metálica adesiva** (tipo suporte magnético de celular, ~0,5 mm) colada sob o copo |
+| Trava do copo 0,25 | Não funcionou: o copo é uma esfera cortada, sem pé, e o bojo encosta antes | Os dedos saíram. Entrou um **assento cônico de 4,5 mm** que copia a base do vaso (escala do arquivo: 80,9 × 80,9 × 80) com folga de 0,2. A arte do vaso começa a ~4,8 mm, então nada fica coberto |
 | Pinos do teste de luz | Furo +0,3 não entrou, +0,5 entrou | Todas as folgas passaram para **0,25 mm radial**: cavilha Ø2,25, haste do pino Ø2,9, bolso da argola e fenda do berço |
 | Luz (impresso em azul) | Não se via a luz | Estrelas de 4 pontas a cada 9 mm nas duas faces do anel + **janelas na borda externa** a cada 18 mm (luz saindo para fora) |
 
-**Por que o "abraço" sozinho não segura o copo:** a base do vaso é um cone de ~27°. Um encaixe apertado num cone empurra o copo para cima, porque o atrito do PLA (~0,3) é menor que tan 27° (~0,5). O cone de 5 mm centraliza o copo e segura de lado. Quem segura contra o balanço da guirlanda são os ímãs. Sem a chapinha, o copo continua apoiado e centralizado (bom para bancada).
+**Retenção do copo:** o assento cônico centraliza o copo e o segura de lado. Contra o balanço normal da guirlanda, o peso do copo basta. Os ímãs são **opcionais**, só para porta que bate com força (`IMAS_ASSENTO` em `src/gerar.py`). Vem desligado.
 
 **Estrelas:**
-- `MODO_ESTRELA = 'janela'`: a estrela é uma pele de 0,4 mm por dentro. Apagada fica invisível; acesa aparece. É o efeito surpresa.
-- `MODO_ESTRELA = 'furo'`: a estrela é vazada e a luz sai direto.
+- `MODO_ESTRELA = 'janela'`: a estrela é uma pele de 0,4 mm por dentro. Apagada fica invisível; acesa aparece.
+- `MODO_ESTRELA = 'furo'`: a estrela é vazada.
 - O `TESTE_LUZ_SEGMENTO` traz os dois modos: janela em cima, vazado embaixo.
 
-**Cor:** o efeito depende do filamento. Azul (e cores escuras) bloqueia a luz. Teste no **marfim** ou em **branco / natural translúcido**.
+**Cor:** azul e cores escuras bloqueiam a luz. Use marfim ou branco / natural translúcido.
 
 ## O que mudou em relação ao projeto de 7 pratos
 

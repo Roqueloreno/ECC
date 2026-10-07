@@ -20,12 +20,12 @@ FILETE     = dict(recuo=0.9, largura=0.7, prof=0.4, largura_min=4.4)
 D_CAVILHA, P_CAVILHA = 2.25, 2.0  # furo p/ cavilha de filamento 1.75 mm (0.25 radial)
 FOLGA_ARGOLA, ESP_ARGOLA = 0.25, 4.0
 D_PINO = 2.9                      # haste do pino do laco (furos de 3.4)
-# berco / assento do copo: vaso "Copo luminoso" escalado X81 Y81 Z90 (perfil em copo_perfil.json)
+# berco / assento do copo: vaso "Copo luminoso" na escala do arquivo (80.9 x 80.9 x 80; perfil em copo_perfil.json)
 COPO = json.load(open(os.path.join(os.path.dirname(__file__), 'copo_perfil.json')))
-ALT_ASSENTO  = 5.0    # altura do abraco (a arte do copo comeca em ~5.5 mm)
+ALT_ASSENTO  = 4.5    # altura do abraco (a arte do copo comeca em ~4.8 mm)
 FOLGA_ASSENTO = 0.20  # folga radial no cone (abraco leve)
-CHAPA_COPO   = 0.5    # chapinha metalica adesiva sob o copo (0 = sem chapa)
-IMAS_ASSENTO = [(-10.0, -9.0), (10.0, -9.0)]   # imas no piso do assento (lado da frente: fora da fenda e do compartimento)
+CHAPA_COPO   = 0.0    # opcional: espessura de chapinha metalica sob o copo (so se usar imas)
+IMAS_ASSENTO = []   # opcional: [(-10, -9), (10, -9)] adiciona 2 imas no piso (porta que bate)
 R_BERCO    = 40.0
 FOLGA_FENDA = 0.25   # por lado
 # luz (versao LED)
@@ -283,12 +283,12 @@ for (u, v) in [(0, -24), (0, 24), (28, 18), (-28, 18)]:
 save(pl, 'COMUM_PLINTO_BANCADA_opcional')
 
 # ---------------- testes ----------------
-h = ALT_ASSENTO + 1.2 + IMA_H + 0.6
+h = ALT_ASSENTO + 1.2 + ((IMA_H + 0.6) if IMAS_ASSENTO else 0.4)
 anel = Manifold.cylinder(h, 37.0, 37.0, 256)
 cone, imas_a = assento(h)
 anel = anel - cone
 for k in imas_a: anel = anel - k
-save(anel, 'TESTE_ASSENTO_COPO', dict(obs='copo X81 Y81 Z90; folga %.2f; chapa %.1f' % (FOLGA_ASSENTO, CHAPA_COPO)))
+save(anel, 'TESTE_ASSENTO_COPO', dict(obs='copo 80.9x80.9x80; folga %.2f' % FOLGA_ASSENTO))
 # segmento real do anel LED (lado esquerdo): estrelas-janela em cima (y>0), estrelas vazadas embaixo
 caixa = Manifold.cube([30, 92, 20]).translate([-121, -46, -10])
 for frente in (True, False):

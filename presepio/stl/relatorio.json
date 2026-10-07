@@ -57,13 +57,13 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 51.89,
+   "volume_cm3": 51.05,
    "dims_mm": [
     80.0,
     80.0,
-    14.5
+    14.0
    ],
-   "altura_mm": 14.47,
+   "altura_mm": 13.97,
    "y_base": -102.0
   },
   {
@@ -84,18 +84,18 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 62.44,
+   "volume_cm3": 61.6,
    "dims_mm": [
     80.0,
     80.0,
-    20.1
+    19.6
    ],
    "caixa_pilha_provisoria": [
     38.0,
     26.0,
     12.0
    ],
-   "altura_mm": 20.1,
+   "altura_mm": 19.6,
    "y_base": -107.63
   },
   {
@@ -142,13 +142,13 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 26.42,
+   "volume_cm3": 12.18,
    "dims_mm": [
     74.0,
     74.0,
-    9.8
+    6.1
    ],
-   "obs": "copo X81 Y81 Z90; folga 0.20; chapa 0.5"
+   "obs": "copo 80.9x80.9x80; folga 0.20"
   },
   {
    "arquivo": "TESTE_LUZ_SEGMENTO_FRENTE.stl",
@@ -180,9 +180,9 @@
  "verificacoes": {
   "colisao_copo_arco_SEM_LED_mm2": 0.0,
   "colisao_copo_arco_LED_mm2": 0.0,
-  "y_piso_copo": -92.03,
-  "y_topo_copo": -2.03,
-  "y_topo_berco": -87.53,
+  "y_piso_copo": -92.53,
+  "y_topo_copo": -12.53,
+  "y_topo_berco": -88.03,
   "topo_da_fenda": -93.73,
   "interf_berco_SEM_LED_F_mm3": 0.0,
   "interf_berco_SEM_LED_V_mm3": 0.0,
