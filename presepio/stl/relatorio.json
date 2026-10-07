@@ -1,0 +1,192 @@
+{
+ "pecas": [
+  {
+   "arquivo": "SEM_LED_01_ARCO_FRENTE.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 26,
+   "volume_cm3": 27.0,
+   "dims_mm": [
+    234.0,
+    206.0,
+    3.0
+   ],
+   "cavilhas": 14
+  },
+  {
+   "arquivo": "SEM_LED_01_ARCO_VERSO.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 26,
+   "volume_cm3": 27.0,
+   "dims_mm": [
+    234.0,
+    206.0,
+    3.0
+   ],
+   "cavilhas": 14
+  },
+  {
+   "arquivo": "LED_01_ARCO_FRENTE.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 24,
+   "volume_cm3": 25.08,
+   "dims_mm": [
+    234.0,
+    206.0,
+    3.0
+   ],
+   "cavilhas": 6
+  },
+  {
+   "arquivo": "LED_01_ARCO_VERSO.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 24,
+   "volume_cm3": 25.08,
+   "dims_mm": [
+    234.0,
+    206.0,
+    3.0
+   ],
+   "cavilhas": 6
+  },
+  {
+   "arquivo": "SEM_LED_02_BERCO_COPO.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 53.97,
+   "dims_mm": [
+    80.0,
+    80.0,
+    15.2
+   ],
+   "altura_mm": 15.21,
+   "y_base": -102.0
+  },
+  {
+   "arquivo": "LED_04_TAMPA_PILHA.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 2.26,
+   "dims_mm": [
+    40.3,
+    28.3,
+    4.6
+   ],
+   "obs": "caixa de pilha PROVISORIA: (38.0, 26.0, 12.0) mm"
+  },
+  {
+   "arquivo": "LED_02_BERCO_COPO.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 65.75,
+   "dims_mm": [
+    80.0,
+    80.0,
+    21.1
+   ],
+   "caixa_pilha_provisoria": [
+    38.0,
+    26.0,
+    12.0
+   ],
+   "altura_mm": 21.1,
+   "y_base": -107.89
+  },
+  {
+   "arquivo": "COMUM_ARGOLA_DOURADA_v2.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 2,
+   "volume_cm3": 1.33,
+   "dims_mm": [
+    22.0,
+    31.1,
+    4.0
+   ],
+   "cor": "dourado"
+  },
+  {
+   "arquivo": "COMUM_PINO_LACO.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 0.12,
+   "dims_mm": [
+    6.0,
+    6.0,
+    10.0
+   ],
+   "qtd_sem_led": 2,
+   "qtd_led": 1
+  },
+  {
+   "arquivo": "COMUM_PLINTO_BANCADA_opcional.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 32.23,
+   "dims_mm": [
+    124.0,
+    66.0,
+    6.0
+   ]
+  },
+  {
+   "arquivo": "TESTE_ENCAIXE_COPO_15.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 1,
+   "volume_cm3": 12.32,
+   "dims_mm": [
+    68.0,
+    68.0,
+    10.4
+   ],
+   "interferencia_mm": 0.15
+  },
+  {
+   "arquivo": "TESTE_ENCAIXE_COPO_25.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 1,
+   "volume_cm3": 12.32,
+   "dims_mm": [
+    68.0,
+    68.0,
+    10.4
+   ],
+   "interferencia_mm": 0.25
+  },
+  {
+   "arquivo": "TESTE_ENCAIXE_COPO_35.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 1,
+   "volume_cm3": 12.33,
+   "dims_mm": [
+    68.0,
+    68.0,
+    10.4
+   ],
+   "interferencia_mm": 0.35
+  }
+ ],
+ "verificacoes": {
+  "colisao_copo_arco_SEM_LED_mm2": 0.0,
+  "colisao_copo_arco_LED_mm2": 0.0,
+  "y_piso_copo": -92.79,
+  "y_topo_copo": -7.79,
+  "y_topo_berco": -86.79,
+  "topo_da_fenda": -93.99,
+  "interf_berco_SEM_LED_F_mm3": 0.0,
+  "interf_berco_SEM_LED_V_mm3": 0.0,
+  "interf_berco_LED_F_mm3": 0.0,
+  "interf_berco_LED_V_mm3": 0.0
+ }
+}
