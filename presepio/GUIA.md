@@ -28,6 +28,13 @@ Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,
 - **Orelha para a estrela** logo abaixo do nó do laço, com furo de Ø1,6 mm para a linha.
 - **Friso em "V":** cada metade tem chanfro de 0,4 mm na borda de colagem, então a linha de cola fica escondida num friso intencional.
 
+## Projetos prontos do Bambu Studio (`3mf/`)
+
+- `PRESEPIO_v2_SEM_LED.3mf` e `PRESEPIO_v2_LED.3mf`: 6 placas cada. Os filamentos já estão atribuídos (1 = marfim, 2 = dourado) e o perfil recomendado abaixo já está aplicado.
+- As placas: 01 teste da trava do copo, 02 arco frente, 03 arco verso, 04 berço + laços + nós + pinos (+ tampa na versão LED), 05 dourado, 06 plinto opcional.
+- O projeto vem **sem fatiamento**. Clique em "Slice all" e confira os tempos.
+- Para regenerar: `python3 src/montar_3mf.py <3mf_original_extraido> stl 3mf`
+
 ## Arquivos (`stl/`): todos já orientados para imprimir
 
 | Arquivo | Qtd | Cor | Observação |
