@@ -34,7 +34,7 @@ PELE_JANELA  = 0.4
 PASSO_ESTRELA = 9.0       # mm ao longo do anel
 PASSO_JANELA_BORDA = 18.0 # janelas na borda externa (luz saindo para fora)
 IMA_D, IMA_H = 8.0, 3.0           # PROVISORIO: confirmar o ima
-CAIXA_PILHA = (38.0, 26.0, 12.0)  # PROVISORIO: medir a caixa de pilha do fio (C x L x A)
+CAIXA_PILHA = (28.55, 18.50, 12.35)  # caixa de pilha do fio anjo (medida pelo cliente, C x L x A)
 STEP = 0.2   # = altura de camada; chanfro em escada alinhado com as camadas
 
 def save(m, name, info=None):
@@ -247,7 +247,7 @@ def berco(led):
         v0 = 3.0 + FOLGA_FENDA + 1.45
         comp = Manifold.cube([cl + 0.6, cw + 0.6, chh + 0.3 + 1.6]).translate([-(cl + 0.6) / 2, v0, -0.01])
         rebaixo = Manifold.cube([cl + 2.6, cw + 2.6, 1.6]).translate([-(cl + 2.6) / 2, v0 - 1.0, -0.01])
-        canal = Manifold.cube([16, 7.0, 3.0]).translate([-32.5, 1.0, -0.01])
+        canal = Manifold.cube([32.5 - cl / 2 + 1.5, 7.0, 3.0]).translate([-32.5, 1.0, -0.01])   # da fenda ate o compartimento
         d = d - comp - rebaixo - canal
         # tampa
         tp = Manifold.cube([cl + 2.6 - 0.3, cw + 2.6 - 0.3, 1.6]).translate([-(cl + 2.3) / 2, 0, 0])
@@ -255,8 +255,8 @@ def berco(led):
         aro_int = Manifold.cube([cl + 0.6 - 2.5, cw + 0.6 - 2.5, 3.2]).translate([-(cl - 1.9) / 2, (2.3 - 0.5) / 2 + 1.7, 1.5])
         unha = Manifold.cube([10, 2.0, 1.0]).translate([-5, -0.01, -0.01])
         tampa = (tp + (aro_ext - aro_int)) - unha
-        save(tampa, 'LED_04_TAMPA_PILHA', dict(obs='caixa de pilha PROVISORIA: %s mm' % (CAIXA_PILHA,)))
-        extra['caixa_pilha_provisoria'] = CAIXA_PILHA
+        save(tampa, 'LED_04_TAMPA_PILHA', dict(obs='caixa de pilha: %s mm' % (CAIXA_PILHA,)))
+        extra['caixa_pilha'] = CAIXA_PILHA
     extra.update(altura_mm=round(h, 2), y_base=round(y_b, 2))
     return d, y_b, extra
 
