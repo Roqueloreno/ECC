@@ -154,10 +154,10 @@
    "arquivo": "TESTE_LUZ_SEGMENTO_FRENTE.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 2,
-   "volume_cm3": 1.66,
+   "genus": 5,
+   "volume_cm3": 1.02,
    "dims_mm": [
-    26.0,
+    25.9,
     92.0,
     3.0
    ],
@@ -167,10 +167,10 @@
    "arquivo": "TESTE_LUZ_SEGMENTO_VERSO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 2,
-   "volume_cm3": 1.66,
+   "genus": 5,
+   "volume_cm3": 1.02,
    "dims_mm": [
-    26.0,
+    25.9,
     92.0,
     3.0
    ],

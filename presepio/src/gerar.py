@@ -293,7 +293,9 @@ save(anel, 'TESTE_ASSENTO_COPO', dict(obs='copo 80.9x80.9x80; folga %.2f' % FOLG
 caixa = Manifold.cube([30, 92, 20]).translate([-121, -46, -10])
 for frente in (True, False):
     asm, _, _ = metade(True, frente, misto=True)
-    seg = asm ^ caixa
+    ea, eb = P['ELIPSE_A'], P['ELIPSE_B']
+    so_anel = Manifold.extrude(elipse(ea, eb).offset(0.5) - elipse(ea, eb).offset(-P['ANEL_LED'] - 0.5), 20).translate([0, 0, -10])
+    seg = asm ^ caixa ^ so_anel          # so o anel (sem pedacos soltos das palmeiras)
     save(para_impressao(seg, True, frente), f'TESTE_LUZ_SEGMENTO_{"FRENTE" if frente else "VERSO"}',
          dict(obs='metade de cima: estrela-janela (pele 0.4) / metade de baixo: estrela vazada'))
 
