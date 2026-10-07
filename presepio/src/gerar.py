@@ -228,9 +228,13 @@ def ima(u, v):
     return Manifold.cylinder(IMA_H + 0.2 + 1, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, -1])
 
 def berco(led):
+    """LED: gaveta aberta pela borda de TRAS (v>0 = verso do arco). A caixa entra deitada (tampa da pilha
+    para baixo), com a lateral da chave virada para fora, rente a borda. Tunel do fio nas DUAS pontas,
+    entao a caixa pode entrar virada para qualquer lado (a chave sempre fica para fora)."""
+    cl, cw, chh = CAIXA_PILHA
+    folga = 0.2; piso_g = 1.2; folga_ponta = 2.5      # espaco na ponta para o fio dobrar
     if led:
-        cl, cw, chh = CAIXA_PILHA
-        y_b = Y_PISO - 1.2 - chh - 0.3 - 1.6
+        y_b = Y_PISO - 1.0 - (chh + 2 * folga) - piso_g
     else:
         y_b = -102.0
     h = Y_TOPO - y_b
@@ -243,20 +247,23 @@ def berco(led):
     for (u, v) in imas: d = d - ima(u, v)
     extra = {}
     if led:
-        cl, cw, chh = CAIXA_PILHA
-        v0 = 3.0 + FOLGA_FENDA + 1.45
-        comp = Manifold.cube([cl + 0.6, cw + 0.6, chh + 0.3 + 1.6]).translate([-(cl + 0.6) / 2, v0, -0.01])
-        rebaixo = Manifold.cube([cl + 2.6, cw + 2.6, 1.6]).translate([-(cl + 2.6) / 2, v0 - 1.0, -0.01])
-        canal = Manifold.cube([32.5 - cl / 2 + 1.5, 7.0, 3.0]).translate([-32.5, 1.0, -0.01])   # da fenda ate o compartimento
-        d = d - comp - rebaixo - canal
-        # tampa
-        tp = Manifold.cube([cl + 2.6 - 0.3, cw + 2.6 - 0.3, 1.6]).translate([-(cl + 2.3) / 2, 0, 0])
-        aro_ext = Manifold.cube([cl + 0.6 - 0.1, cw + 0.6 - 0.1, 3.0]).translate([-(cl + 0.5) / 2, (2.3 - 0.5) / 2 + 0.5, 1.6])
-        aro_int = Manifold.cube([cl + 0.6 - 2.5, cw + 0.6 - 2.5, 3.2]).translate([-(cl - 1.9) / 2, (2.3 - 0.5) / 2 + 1.7, 1.5])
-        unha = Manifold.cube([10, 2.0, 1.0]).translate([-5, -0.01, -0.01])
-        tampa = (tp + (aro_ext - aro_int)) - unha
-        save(tampa, 'LED_04_TAMPA_PILHA', dict(obs='caixa de pilha: %s mm' % (CAIXA_PILHA,)))
-        extra['caixa_pilha'] = CAIXA_PILHA
+        L = cl + 2 * folga + 2 * folga_ponta
+        r_canto = math.sqrt((R_BERCO - 2.0) ** 2 - (cl / 2) ** 2)    # borda (com chanfro de sombra) no canto da caixa
+        v_tras = r_canto + 0.3                                        # lateral da chave rente a borda
+        v_frente = v_tras - cw - 2 * folga
+        gaveta = Manifold.cube([L, R_BERCO + 5 - v_frente, chh + 2 * folga]).translate([-L / 2, v_frente, piso_g])
+        d = d - gaveta
+        # ressalto de retencao no piso, perto da abertura (a caixa passa com um clique)
+        d = d + Manifold.cube([cl * 0.6, 0.8, 0.35]).translate([-cl * 0.3, v_tras + 0.4, piso_g - 0.01])
+        # tuneis do fio: da fenda ate as duas pontas da gaveta
+        for sx in (-1, 1):
+            u0 = sx * (L / 2 - folga_ponta / 2)
+            tunel = Manifold.cube([4.0, v_frente - 2.0 + 2.5, 3.0]).translate([u0 - 2.0, 2.0, piso_g])
+            d = d - tunel
+            # da fenda (onde o fio sai da sola, x ~ -30) ate o tunel, pelo vao aberto da fenda
+        canal = Manifold.cube([30.5 - L / 2 + 4, 4.0, 3.0]).translate([-30.5 - 1, 1.0, piso_g])
+        d = d - canal
+        extra.update(caixa_pilha=CAIXA_PILHA, gaveta='aberta por tras, chave para fora')
     extra.update(altura_mm=round(h, 2), y_base=round(y_b, 2))
     return d, y_b, extra
 

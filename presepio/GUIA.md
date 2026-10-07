@@ -32,6 +32,14 @@ Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,
 
 **Cor:** azul e cores escuras bloqueiam a luz. Use marfim ou branco / natural translúcido.
 
+**Berço LED: gaveta da pilha (revisão 3)**
+- A caixinha entra **por trás do berço**, deitada (tampa da pilha para baixo), com a **lateral da chave virada para fora**, rente à borda.
+- Para ligar e desligar, basta alcançar atrás do berço, sem levantar o arco. Na guirlanda, a chave fica virada para a parede.
+- Um ressalto de 0,35 mm no piso da gaveta segura a caixinha com um clique.
+- Há túnel de fio nas **duas pontas** da gaveta, então a caixinha pode entrar virada para qualquer lado: a chave sempre fica para fora.
+- A tampa de baixo deixou de existir, e o fundo do berço ficou liso.
+- Ímãs: 3,95 × 1,89 mm, em bolsos de Ø4,15 × 2,1 mm (só para o plinto opcional).
+
 ## O que mudou em relação ao projeto de 7 pratos
 
 - **Sem parafusos, porcas, garfo, pé removível, calços nem espaçadores.**
@@ -60,7 +68,6 @@ Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,
 | `SEM_LED_02_BERCO_COPO` | 1 | marfim | |
 | `LED_01_ARCO_FRENTE` / `_VERSO` | 1 + 1 | marfim | Câmara de luz voltada para cima |
 | `LED_02_BERCO_COPO` | 1 | marfim | Compartimento **provisório** (ver Pendências) |
-| `LED_04_TAMPA_PILHA` | 1 | marfim | |
 | `COMUM_LACO_FRENTE_original` / `_VERSO_original` | 1 + 1 | marfim | Sem alteração |
 | `COMUM_NO_LACO_original_imprimir_2x` | 2 | marfim | O mesmo nó na frente e no verso |
 | `COMUM_PINO_LACO` | 2 (sem LED) / 1 (LED) | marfim | Imprima 1 a mais de reserva |

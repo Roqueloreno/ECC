@@ -52,8 +52,8 @@ for nome, itens in PLACAS['SEM_LED']:
         f = f.replace('SEM_LED_', 'LED_')
         novos.append((f, n, fil, x, y, r))
     if nome.startswith('04'):
-        novos = [i for i in novos if i[1] != 'PINO_LACO_2'] + [('LED_04_TAMPA_PILHA', 'TAMPA_PILHA', 1, 75, 100, 0)]
-        nome = '04 BERCO LED + TAMPA + LACOS + NOS + PINOS - marfim'
+        novos = [i for i in novos if i[1] != 'PINO_LACO_2']
+        nome = '04 BERCO LED (gaveta) + LACOS + NOS + PINOS - marfim'
     led.append((nome, novos))
 PLACAS['LED'] = led
 PLACAS['TESTES'] = [PLACAS['SEM_LED'][0]]
