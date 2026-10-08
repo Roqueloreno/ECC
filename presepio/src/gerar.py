@@ -34,7 +34,7 @@ MODO_ESTRELA = 'furo'     # FINAL: vazada (luz sai e cintila) | 'janela' = pele 
 PELE_JANELA  = 0.4
 PASSO_ESTRELA = 9.0       # mm ao longo do anel
 PASSO_JANELA_BORDA = 18.0 # janelas na borda externa (luz saindo para fora)
-IMA_D, IMA_H = 3.95, 1.89          # imas do cliente (bolso: +0.2 no diametro, +0.2 na altura)
+IMA_D, IMA_H = 3.95, 1.89          # imas do cliente (bolso: +0.5 no diametro = 0.25 por lado, validado; +0.3 na altura)
 CAIXA_PILHA = (28.55, 18.50, 12.35)  # caixa de pilha do fio anjo (medida pelo cliente, C x L x A)
 STEP = 0.2   # = altura de camada; chanfro em escada alinhado com as camadas
 
@@ -219,7 +219,7 @@ def assento(topo):
     rt = prof[-1][0]
     prof += [(rt + ch + 1, topo + 1), (0, topo + 1), (0, piso)]   # chanfro passa do topo: evita vertice coincidente
     cone = Manifold.revolve(CrossSection([prof]), 256)
-    imas = [Manifold.cylinder(IMA_H + 0.7, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, piso - IMA_H - 0.2]) for (u, v) in IMAS_ASSENTO]
+    imas = [Manifold.cylinder(IMA_H + 0.7, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, piso - IMA_H - 0.2]) for (u, v) in IMAS_ASSENTO]
     return cone, imas
 
 def disco_base(y_b, y_t):
@@ -234,7 +234,7 @@ def fenda_local(y_b):
     return f.rotate([90, 0, 0]).translate([0, 0, -y_b])
 
 def ima(u, v):
-    return Manifold.cylinder(IMA_H + 0.2 + 1, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, -1])
+    return Manifold.cylinder(IMA_H + 0.3 + 1, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, -1])
 
 def berco(led):
     """LED: gaveta aberta pela borda de TRAS (v>0 = verso do arco). A caixa entra deitada (tampa da pilha
@@ -295,7 +295,7 @@ el = CrossSection([np.c_[L / 2 * np.cos(tt), W / 2 * np.sin(tt)]])
 pl = chanfrado(el, H, 0.4, 1.2)
 pl = pl - Manifold.cylinder(2, R_BERCO + 0.3, R_BERCO + 0.3, 256).translate([0, 0, H - 1.2])
 for (u, v) in [(0, -24), (0, 24), (28, 18), (-28, 18)]:
-    pl = pl - Manifold.cylinder(IMA_H + 0.2 + 1, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, H - 1.2 - IMA_H - 0.2])
+    pl = pl - Manifold.cylinder(IMA_H + 0.3 + 1, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, H - 1.2 - IMA_H - 0.2])
 save(pl, 'COMUM_PLINTO_BANCADA_opcional')
 
 # gabarito: encaixa no piso interno do copo (livre Ø44.6) e posiciona os 3 imas a r=16 (mesmos angulos do berco)
