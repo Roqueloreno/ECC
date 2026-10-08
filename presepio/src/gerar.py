@@ -2,7 +2,7 @@
 Uso: python3 gerar.py <pasta_Objects_do_3mf_original> <pasta_saida>
 Coordenadas de montagem: arco no plano XY (mm), espessura em Z (-3..+3), frente = +Z."""
 import sys, math, json, os, numpy as np, trimesh
-from manifold3d import Manifold, CrossSection, OpType
+from manifold3d import Manifold, CrossSection, OpType, Mesh
 sys.path.insert(0, os.path.dirname(__file__))
 from arte2d import P, rect, circ, elipse, arte_base, camara_led, argola_2d_lingueta, argola_original
 
@@ -286,8 +286,35 @@ for led in (False, True):
 arg = argola_original(MD)
 corte = Manifold.cube([40, 40, 10]).translate([-20, P['ARGOLA_CORTE'] - 40, -1])
 save(arg - corte, 'COMUM_ARGOLA_DOURADA_v2', dict(cor='dourado'))
-pino = Manifold.cylinder(2.0, 3.0, 3.0, 48) + Manifold.cylinder(2.0 + 8.0, D_PINO / 2, D_PINO / 2, 32)
-save(pino, 'COMUM_PINO_LACO', dict(qtd_sem_led=2, qtd_led=1))
+# rebite do laco (macho + femea). Pilha: laco frente 2.14 | arco 6.0 | laco verso 2.14 ; furos do laco 6.3, do arco 3.4
+CAB_D, CAB_H = 7.6, 1.0          # cabeca maior que o furo do laco: prende o laco contra o arco
+COLAR_D, COLAR_H = 6.0, 2.1      # preenche o furo do laco (6.3): alinha
+HASTE_D, HASTE_L = 2.9, 8.0      # atravessa o arco (6.0) e entra 2.0 na femea
+FURO_FEMEA_D = 3.15              # aperto com as nervuras da haste
+def nervuras(z0, z1, r, n=3, larg=0.5, alt=0.18):
+    out = []
+    for k in range(n):
+        out.append(Manifold.cube([alt + 0.3, larg, z1 - z0]).translate([r - 0.3, -larg / 2, z0]).rotate([0, 0, k * 360 / n]))
+    return out
+macho = Manifold.cylinder(CAB_H, CAB_D / 2, CAB_D / 2, 64) + Manifold.cylinder(CAB_H + COLAR_H, COLAR_D / 2, COLAR_D / 2, 64) \
+    + Manifold.cylinder(CAB_H + COLAR_H + HASTE_L, HASTE_D / 2, HASTE_D / 2, 32)
+# ponta chanfrada + 3 nervuras de esmagamento nos ultimos 2.5 mm
+topo = CAB_H + COLAR_H + HASTE_L
+macho = macho - (Manifold.cylinder(1.0, HASTE_D / 2 + 1, HASTE_D / 2 + 1, 32) - Manifold.cylinder(1.0, HASTE_D / 2, HASTE_D / 2 - 0.5, 32)).translate([0, 0, topo - 0.5])
+for k in nervuras(topo - 2.8, topo - 0.5, HASTE_D / 2): macho = macho + k
+save(macho, 'COMUM_PINO_LACO_MACHO', dict(qtd_sem_led=2, qtd_led=1))
+femea = Manifold.cylinder(CAB_H, CAB_D / 2, CAB_D / 2, 64) + Manifold.cylinder(CAB_H + COLAR_H, COLAR_D / 2, COLAR_D / 2, 64)
+femea = femea - Manifold.cylinder(COLAR_H + 0.6 + 1, FURO_FEMEA_D / 2, FURO_FEMEA_D / 2, 32).translate([0, 0, CAB_H + COLAR_H - (COLAR_H + 0.6)])
+femea = femea - (Manifold.cylinder(0.4, FURO_FEMEA_D / 2 + 0.4, FURO_FEMEA_D / 2, 32)).translate([0, 0, CAB_H + COLAR_H - 0.4])  # entrada chanfrada
+save(femea, 'COMUM_PINO_LACO_FEMEA', dict(qtd_sem_led=2, qtd_led=1))
+# no do laco com rebaixo para as cabecas (vitrine na mesa, rebaixo para cima)
+_no = trimesh.load(os.path.join(OUT, 'COMUM_NO_LACO_original_imprimir_2x.stl'), process=False); _no.merge_vertices()
+_nom = Manifold(Mesh(vert_properties=_no.vertices.astype(np.float32), tri_verts=_no.faces.astype(np.uint32)))
+_b = _nom.bounding_box(); _nom = _nom.translate([-(_b[0] + _b[3]) / 2, -(_b[1] + _b[4]) / 2, -_b[2]])
+_alt = _b[5] - _b[2]
+reb = (CrossSection.circle(CAB_D / 2 + 0.25, 64).translate([0, -4]) + CrossSection.circle(CAB_D / 2 + 0.25, 64).translate([0, 4])).hull()
+_nom = _nom - Manifold.extrude(reb, CAB_H + 0.2 + 1).translate([0, 0, _alt - CAB_H - 0.2])
+save(_nom, 'COMUM_NO_LACO_v2_imprimir_2x', dict(obs='rebaixo 8.1 x 16.1 x 1.2 para as cabecas do rebite'))
 # plinto opcional (bancada)
 L, W, H = 124.0, 66.0, 6.0
 tt = np.linspace(0, 2 * np.pi, 256, endpoint=False)

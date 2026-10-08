@@ -35,11 +35,14 @@ PLACAS = {
             ('SEM_LED_02_BERCO_COPO', 'BERCO_COPO', 1, 60, 190, 0),
             ('COMUM_LACO_FRENTE_original', 'LACO_FRENTE', 1, 170, 200, 0),
             ('COMUM_LACO_VERSO_original', 'LACO_VERSO', 1, 170, 130, 0),
-            ('COMUM_NO_LACO_original_imprimir_2x', 'NO_LACO_1', 1, 30, 60, 0),
-            ('COMUM_NO_LACO_original_imprimir_2x', 'NO_LACO_2', 1, 52, 60, 0),
-            ('COMUM_PINO_LACO', 'PINO_LACO_1', 1, 80, 60, 0),
-            ('COMUM_PINO_LACO', 'PINO_LACO_2', 1, 92, 60, 0),
-            ('COMUM_PINO_LACO', 'PINO_LACO_reserva', 1, 104, 60, 0),
+            ('COMUM_NO_LACO_v2_imprimir_2x', 'NO_LACO_1', 1, 30, 60, 0),
+            ('COMUM_NO_LACO_v2_imprimir_2x', 'NO_LACO_2', 1, 52, 60, 0),
+            ('COMUM_PINO_LACO_MACHO', 'PINO_LACO_1', 1, 80, 70, 0),
+            ('COMUM_PINO_LACO_MACHO', 'PINO_LACO_2', 1, 92, 70, 0),
+            ('COMUM_PINO_LACO_MACHO', 'PINO_LACO_reserva', 1, 104, 70, 0),
+            ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_1', 1, 80, 52, 0),
+            ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_2', 1, 92, 52, 0),
+            ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_reserva', 1, 104, 52, 0),
             ('COMUM_GABARITO_IMAS_COPO', 'GABARITO_IMAS_COPO', 1, 195, 50, 0)]),
         ('05 DOURADO - argola e estrela', [
             ('COMUM_ARGOLA_DOURADA_v2', 'ARGOLA_DOURADA', 2, 98, 128, 0),
@@ -55,7 +58,7 @@ for nome, itens in PLACAS['SEM_LED']:
         f = f.replace('SEM_LED_', 'LED_')
         novos.append((f, n, fil, x, y, r))
     if nome.startswith('04'):
-        novos = [i for i in novos if i[1] != 'PINO_LACO_2']
+        novos = [i for i in novos if i[1] not in ('PINO_LACO_2', 'FEMEA_LACO_2')]
         nome = '04 BERCO LED (gaveta) + LACOS + NOS + PINOS - marfim'
     led.append((nome, novos))
 PLACAS['LED'] = led

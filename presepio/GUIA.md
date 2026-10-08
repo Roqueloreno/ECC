@@ -63,6 +63,14 @@
   - Os ímãs também giram o copo sozinho para uma das 3 posições.
   - **Polaridade:** monte os pares primeiro (copo + berço), marque a face que atrai e só depois cole.
 
+
+**Rebite do laço (revisão 5):** o pino antigo foi substituído por **macho + fêmea**.
+- **Pino macho:** cabeça de Ø7,6, maior que o furo do laço (6,3), colar de Ø6,0 que alinha no furo e haste de Ø2,9 com nervuras na ponta.
+- **Fêmea:** cabeça de Ø7,6, colar de Ø6,0 e furo de 3,15. A ponta do macho entra apertada (nervuras de esmagamento) + uma gota de CA.
+- **Montagem:** macho pela frente → atravessa laço frente + arco + argola → fêmea por trás, no laço verso → aperte até as duas cabeças encostarem nos laços.
+- **Nós v2:** têm um rebaixo de 8,1 × 16,1 × 1,2 mm por baixo que esconde as duas cabeças, então assentam rentes no laço.
+- **Quantidade:** sem LED, 2 machos + 2 fêmeas; LED, 1 + 1. Vem 1 par de reserva.
+
 **Berço LED: gaveta da pilha (revisão 3)**
 - A caixinha entra **por trás do berço**, deitada (tampa da pilha para baixo), com a **lateral da chave virada para fora**, rente à borda.
 - Para ligar e desligar, basta alcançar atrás do berço, sem levantar o arco. Na guirlanda, a chave fica virada para a parede.

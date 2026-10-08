@@ -100,18 +100,45 @@
    "cor": "dourado"
   },
   {
-   "arquivo": "COMUM_PINO_LACO.stl",
+   "arquivo": "COMUM_PINO_LACO_MACHO.stl",
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 0.11,
+   "volume_cm3": 0.16,
    "dims_mm": [
-    6.0,
-    6.0,
-    10.0
+    7.6,
+    7.6,
+    11.1
    ],
    "qtd_sem_led": 2,
    "qtd_led": 1
+  },
+  {
+   "arquivo": "COMUM_PINO_LACO_FEMEA.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 0.08,
+   "dims_mm": [
+    7.6,
+    7.6,
+    3.1
+   ],
+   "qtd_sem_led": 2,
+   "qtd_led": 1
+  },
+  {
+   "arquivo": "COMUM_NO_LACO_v2_imprimir_2x.stl",
+   "estanque": true,
+   "manifold_ok": true,
+   "genus": 0,
+   "volume_cm3": 0.42,
+   "dims_mm": [
+    12.8,
+    21.7,
+    2.0
+   ],
+   "obs": "rebaixo 8.1 x 16.1 x 1.2 para as cabecas do rebite"
   },
   {
    "arquivo": "COMUM_PLINTO_BANCADA_opcional.stl",
