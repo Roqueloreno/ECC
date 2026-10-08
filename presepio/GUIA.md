@@ -58,7 +58,7 @@
 - **Encaixe das metades do arco LED:** a frente tem uma **nervura** de 0,5 × 0,8 mm na parede externa do anel e o verso tem a **canaleta** correspondente (0,8 × 1,0 mm). As metades se alinham sozinhas e a nervura veda a luz na emenda. A parede externa passou de 1,2 para 1,8 mm para comportar o encaixe.
 - **Copo preso na guirlanda:** **3 pares de ímãs** (3,95 × 1,89 mm).
   - **No berço:** 3 bolsos no piso do assento, a 16 mm do centro, a 30°/150°/270°.
-  - **No copo:** cole os 3 ímãs **por dentro**, no piso, nas mesmas posições (um círculo de 32 mm de diâmetro, a 120°). Eles ficam escondidos debaixo da vela.
+  - **No copo:** os 3 ímãs vão no **disco porta-ímãs** (`COMUM_DISCO_PORTA_IMAS_COPO`, Ø44 × 2,8 mm). Os ímãs entram nos bolsos de baixo, e o disco é colado no piso interno do copo com os ímãs virados para baixo. O topo é fechado e plano: a **vela apoia firme em cima** (sobe ~2,8 mm). Substitui o gabarito.
   - O fundo do copo tem só ~1,3 mm, por isso não dá para fazer bolso por baixo.
   - Os ímãs também giram o copo sozinho para uma das 3 posições.
   - **Polaridade:** monte os pares primeiro (copo + berço), marque a face que atrai e só depois cole.

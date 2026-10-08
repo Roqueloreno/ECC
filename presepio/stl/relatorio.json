@@ -153,17 +153,17 @@
    ]
   },
   {
-   "arquivo": "COMUM_GABARITO_IMAS_COPO.stl",
+   "arquivo": "COMUM_DISCO_PORTA_IMAS_COPO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 3,
-   "volume_cm3": 2.65,
+   "genus": 0,
+   "volume_cm3": 4.03,
    "dims_mm": [
     44.0,
     44.0,
-    9.6
+    2.8
    ],
-   "obs": "coloque no fundo do copo, cole os imas pelos furos, retire"
+   "obs": "colar no piso interno do copo, imas para baixo; a vela apoia em cima"
   },
   {
    "arquivo": "TESTE_ASSENTO_COPO.stl",

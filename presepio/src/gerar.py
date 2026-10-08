@@ -325,12 +325,14 @@ for (u, v) in [(0, -24), (0, 24), (28, 18), (-28, 18)]:
     pl = pl - Manifold.cylinder(IMA_H + 0.3 + 1, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, H - 1.2 - IMA_H - 0.2])
 save(pl, 'COMUM_PLINTO_BANCADA_opcional')
 
-# gabarito: encaixa no piso interno do copo (livre Ø44.6) e posiciona os 3 imas a r=16 (mesmos angulos do berco)
-gab = Manifold.cylinder(1.6, 22.0, 22.0, 192)
+# disco porta-imas: fica colado no piso interno do copo (livre Ø44.6). Imas nos bolsos de baixo (encostados no
+# fundo do copo), topo fechado e plano: a vela LED apoia nele sem balancar.
+DISCO_H = IMA_H + 0.3 + 0.6          # bolso + tampa de 0.6 por cima
+disco = Manifold.cylinder(DISCO_H - 0.4, 22.0, 22.0, 192) + Manifold.cylinder(0.4, 22.0, 21.6, 192).translate([0, 0, DISCO_H - 0.4])  # chanfro do topo
 for (u, v) in IMAS_ASSENTO:
-    gab = gab - Manifold.cylinder(4, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, -1])
-gab = gab + Manifold.cylinder(9.6, 4.0, 3.0, 64)      # pegador central
-save(gab, 'COMUM_GABARITO_IMAS_COPO', dict(obs='coloque no fundo do copo, cole os imas pelos furos, retire'))
+    disco = disco - Manifold.cylinder(IMA_H + 0.3 + 1, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, -1])
+disco = disco - Manifold.cylinder(1.0, 8.0, 8.0, 64).translate([0, 0, -0.5])   # alivio central: assenta so na borda e nos imas
+save(disco, 'COMUM_DISCO_PORTA_IMAS_COPO', dict(obs='colar no piso interno do copo, imas para baixo; a vela apoia em cima'))
 
 # ---------------- testes ----------------
 h = ALT_ASSENTO + 1.2 + ((IMA_H + 0.6) if IMAS_ASSENTO else 0.4)

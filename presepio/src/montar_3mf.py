@@ -43,7 +43,7 @@ PLACAS = {
             ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_1', 1, 80, 52, 0),
             ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_2', 1, 92, 52, 0),
             ('COMUM_PINO_LACO_FEMEA', 'FEMEA_LACO_reserva', 1, 104, 52, 0),
-            ('COMUM_GABARITO_IMAS_COPO', 'GABARITO_IMAS_COPO', 1, 195, 50, 0)]),
+            ('COMUM_DISCO_PORTA_IMAS_COPO', 'DISCO_PORTA_IMAS_COPO', 1, 195, 50, 0)]),
         ('05 DOURADO - argola e estrela', [
             ('COMUM_ARGOLA_DOURADA_v2', 'ARGOLA_DOURADA', 2, 98, 128, 0),
             ('COMUM_ESTRELA_FRENTE_original', 'ESTRELA_FRENTE', 2, 130, 128, 0),
