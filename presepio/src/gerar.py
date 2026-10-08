@@ -30,7 +30,7 @@ IMAS_ASSENTO = [(R_IMA_COPO * math.cos(math.radians(a)), R_IMA_COPO * math.sin(m
 R_BERCO    = 40.0
 FOLGA_FENDA = 0.25   # por lado
 # luz (versao LED)
-MODO_ESTRELA = 'janela'   # 'janela' = pele fina so na estrela (some apagada) | 'furo' = vazada
+MODO_ESTRELA = 'furo'     # FINAL: vazada (luz sai e cintila) | 'janela' = pele fina so na estrela
 PELE_JANELA  = 0.4
 PASSO_ESTRELA = 9.0       # mm ao longo do anel
 PASSO_JANELA_BORDA = 18.0 # janelas na borda externa (luz saindo para fora)

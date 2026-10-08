@@ -30,8 +30,8 @@
    "arquivo": "LED_01_ARCO_FRENTE.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 24,
-   "volume_cm3": 25.87,
+   "genus": 74,
+   "volume_cm3": 25.8,
    "dims_mm": [
     234.0,
     206.0,
@@ -43,8 +43,8 @@
    "arquivo": "LED_01_ARCO_VERSO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 24,
-   "volume_cm3": 25.26,
+   "genus": 74,
+   "volume_cm3": 25.2,
    "dims_mm": [
     234.0,
     206.0,

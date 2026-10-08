@@ -57,6 +57,10 @@ for nome, itens in PLACAS['SEM_LED']:
     led.append((nome, novos))
 PLACAS['LED'] = led
 PLACAS['TESTES'] = [PLACAS['SEM_LED'][0]]
+# versoes finais: sem a placa de testes (ela fica no arquivo TESTES)
+PLACAS['SEM_LED'] = [(n.replace('02 ', '01 ').replace('03 ', '02 ').replace('04 ', '03 ').replace('05 ', '04 ').replace('06 ', '05 '), i) for n, i in PLACAS['SEM_LED'][1:]]
+PLACAS['LED'] = [(n.replace('02 ', '01 ').replace('03 ', '02 ').replace('04 ', '03 ').replace('05 ', '04 ').replace('06 ', '05 ').replace('marfim', 'BRANCO'), i) for n, i in PLACAS['LED'][1:]]
+COR_FIL1 = {'SEM_LED': '#E9DABA', 'LED': '#FFFFFF', 'TESTES': '#FFFFFF'}   # LED: branco deixa a luz passar
 
 def cabecalho():
     return ('<?xml version="1.0" encoding="UTF-8"?>\n<model unit="millimeter" xml:lang="en-US" '
@@ -139,6 +143,7 @@ def montar(versao):
     z.writestr('Metadata/model_settings.config', '<?xml version="1.0" encoding="UTF-8"?>\n<config>\n'
                + ''.join(cfg_obj) + ''.join(cfg_placas) + '  <assemble>\n  </assemble>\n</config>\n')
     ps = json.load(open(os.path.join(ORIG, 'Metadata/project_settings.config')))
+    ps['filament_colour'] = [COR_FIL1[versao], '#BC841F']
     for k, v in PERFIL.items():
         if k in ps or k in ('top_shell_thickness', 'bottom_shell_thickness'):
             ps[k] = v

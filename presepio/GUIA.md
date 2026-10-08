@@ -1,17 +1,38 @@
 # Arco Presépio v2: guia de produção
 
-Duas versões que usam a mesma arte, o mesmo copo de 80 mm e o mesmo laço:
+## VERSÃO FINAL: pronta para imprimir
+
+**Arquivos:** `3mf/PRESEPIO_v2_SEM_LED.3mf` e `3mf/PRESEPIO_v2_LED.3mf`. São 5 placas cada, com perfil P1S e filamentos já atribuídos. Os testes ficam à parte, em `PRESEPIO_v2_TESTES.3mf`.
 
 | | SEM LED | LED |
 |---|---|---|
-| Arco | 2 metades de 3,0 mm (total de 6,0 mm), com filete gravado nas duas faces | 2 metades de 3,0 mm, anel de 7,6 mm com câmara de luz interna |
-| Face de vitrine | Para cima na impressão (o filete sai nítido) | Na mesa (face lisa, com textura da placa) |
-| Alinhamento | 14 cavilhas de filamento de 1,75 mm | 6 cavilhas de filamento de 1,75 mm |
-| Berço do copo | 15,2 mm de altura | 21,1 mm, com compartimento de pilha e canal do fio |
-| Tempo (fatiado e calibrado) | ~4h05 de impressão (+~25 min de preparo, 4 pratos) | ~4h20 de impressão (+~25 min de preparo, 4 pratos) |
-| Filamento | ~100 g de marfim + ~3 g de dourado | ~110 g de marfim + ~3 g de dourado |
+| Cor principal | Marfim | **Branco** (deixa a luz passar) |
+| Arco | 2 metades de 3 mm, filete gravado nas duas faces, 14 cavilhas | 2 metades de 3 mm, câmara de luz 4,6 × 4,4 mm, **nervura/canaleta** de encaixe + 6 cavilhas |
+| Luz | — | Fio anjo de 2 m em **3 passadas** (~1,8 m), **estrelas vazadas** a cada 9 mm nas duas faces + janelas na borda a cada 18 mm |
+| Berço | 14 mm, assento cônico de 4,5 mm | 19,5 mm, assento cônico de 4,5 mm + **gaveta por trás** (chave da caixinha para fora) |
+| Copo | Assento abraça os 4,5 mm de baixo (abaixo da arte, que começa em ~4,8 mm) + **3 pares de ímãs** | Igual |
+| Impressão (estimativa calibrada) | ~4h00 + ~25 min de preparo | ~4h25 + ~25 min de preparo |
+| Filamento | ~98 g de marfim + ~2 g de dourado | ~106 g de branco + ~2 g de dourado |
+| Medidas montado | 23,4 × 23,0 × 8,1 cm | 23,4 × 23,5 × 8,1 cm |
 
-Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,07. O fator saiu da comparação com o seu arco original: o Bambu estimou 2h13 e o Prusa, 2h04. **Confirme no Bambu Studio.**
+**Placas:**
+1. Arco frente.
+2. Arco verso.
+3. Berço + laços + nós + pinos.
+4. Dourado: argola + estrela.
+5. Plinto (opcional).
+
+**Materiais por kit:**
+- Cola CA gel.
+- Filamento de 1,75 mm para as cavilhas.
+- 6 ímãs de 3,95 × 1,89 mm (3 no copo e 3 no berço), mais 3 a 4 se usar o plinto.
+- Versão LED: fio anjo de 2 m com caixinha de pilha.
+
+**Verificado:**
+- Malhas fechadas em todas as peças.
+- Colisão copo × arco = 0.
+- Interferência berço × arco = 0 e metades × metades = 0.
+- O berço desce sobre o anel fechado sem travar.
 
 ![montagem](img/montagem_frente.png)
 
