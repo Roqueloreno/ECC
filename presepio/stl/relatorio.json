@@ -31,11 +31,11 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 24,
-   "volume_cm3": 24.92,
+   "volume_cm3": 25.87,
    "dims_mm": [
     234.0,
     206.0,
-    3.0
+    3.8
    ],
    "cavilhas": 6
   },
@@ -44,7 +44,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 24,
-   "volume_cm3": 24.92,
+   "volume_cm3": 25.26,
    "dims_mm": [
     234.0,
     206.0,
@@ -57,7 +57,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 51.33,
+   "volume_cm3": 51.24,
    "dims_mm": [
     80.0,
     80.0,
@@ -71,7 +71,7 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 2,
-   "volume_cm3": 66.03,
+   "volume_cm3": 65.94,
    "dims_mm": [
     80.0,
     80.0,
@@ -130,11 +130,11 @@
    "estanque": true,
    "manifold_ok": true,
    "genus": 0,
-   "volume_cm3": 12.18,
+   "volume_cm3": 21.08,
    "dims_mm": [
     74.0,
     74.0,
-    6.1
+    8.2
    ],
    "obs": "copo 80.9x80.9x80; folga 0.20"
   },
@@ -142,12 +142,12 @@
    "arquivo": "TESTE_LUZ_SEGMENTO_FRENTE.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 5,
-   "volume_cm3": 1.02,
+   "genus": 6,
+   "volume_cm3": 1.18,
    "dims_mm": [
     25.9,
     92.0,
-    3.0
+    3.8
    ],
    "obs": "metade de cima: estrela-janela (pele 0.4) / metade de baixo: estrela vazada"
   },
@@ -155,8 +155,8 @@
    "arquivo": "TESTE_LUZ_SEGMENTO_VERSO.stl",
    "estanque": true,
    "manifold_ok": true,
-   "genus": 5,
-   "volume_cm3": 1.02,
+   "genus": 6,
+   "volume_cm3": 1.08,
    "dims_mm": [
     25.9,
     92.0,
@@ -175,6 +175,8 @@
   "interf_berco_SEM_LED_F_mm3": 0.0,
   "interf_berco_SEM_LED_V_mm3": 0.0,
   "interf_berco_LED_F_mm3": 0.0,
-  "interf_berco_LED_V_mm3": 0.0
+  "interf_berco_LED_V_mm3": 0.0,
+  "interf_entre_metades_SEM_LED_mm3": 0.0,
+  "interf_entre_metades_LED_mm3": 0.0
  }
 }

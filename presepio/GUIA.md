@@ -32,6 +32,16 @@ Os tempos vêm do PrusaSlicer com o perfil abaixo, corrigidos por um fator de 1,
 
 **Cor:** azul e cores escuras bloqueiam a luz. Use marfim ou branco / natural translúcido.
 
+
+**Revisão 4: depois do teste em PLA branco (vídeo de 07/10)**
+- **Encaixe das metades do arco LED:** a frente tem uma **nervura** de 0,5 × 0,8 mm na parede externa do anel e o verso tem a **canaleta** correspondente (0,8 × 1,0 mm). As metades se alinham sozinhas e a nervura veda a luz na emenda. A parede externa passou de 1,2 para 1,8 mm para comportar o encaixe.
+- **Copo preso na guirlanda:** **3 pares de ímãs** (3,95 × 1,89 mm).
+  - **No berço:** 3 bolsos no piso do assento, a 16 mm do centro, a 30°/150°/270°.
+  - **No copo:** cole os 3 ímãs **por dentro**, no piso, nas mesmas posições (um círculo de 32 mm de diâmetro, a 120°). Eles ficam escondidos debaixo da vela.
+  - O fundo do copo tem só ~1,3 mm, por isso não dá para fazer bolso por baixo.
+  - Os ímãs também giram o copo sozinho para uma das 3 posições.
+  - **Polaridade:** monte os pares primeiro (copo + berço), marque a face que atrai e só depois cole.
+
 **Berço LED: gaveta da pilha (revisão 3)**
 - A caixinha entra **por trás do berço**, deitada (tampa da pilha para baixo), com a **lateral da chave virada para fora**, rente à borda.
 - Para ligar e desligar, basta alcançar atrás do berço, sem levantar o arco. Na guirlanda, a chave fica virada para a parede.

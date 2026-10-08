@@ -6,7 +6,8 @@ from manifold3d import Manifold, Mesh, CrossSection, JoinType
 P = dict(
     ELIPSE_C=(0.0, -5.28), ELIPSE_A=117.0, ELIPSE_B=100.19,
     ANEL_LED=7.6,            # largura do anel na versao LED (original ~4.6)
-    PAREDE_CAMARA=1.2,       # parede lateral da camara de luz
+    PAREDE_CAMARA=1.2,       # parede interna da camara de luz
+    PAREDE_EXT=1.8,          # parede externa (mais grossa: leva a nervura de encaixe das metades)
     BERCO_X=39.5,            # meia-largura da zona que fica dentro do berco
     SOLA_Y=(-100.5, -95.0),  # sola achatada (escondida no berco)
     FURO_LACO=[(0.0, 100.46), (0.0, 92.46)], D_FURO_LACO=3.4,
@@ -67,13 +68,14 @@ def arte_base(model_dir, led):
 def camara_led():
     ea, eb = P['ELIPSE_A'], P['ELIPSE_B']; w = P['PAREDE_CAMARA']; bx = P['BERCO_X']
     s0, s1 = P['SOLA_Y']
-    c = elipse(ea, eb).offset(-w) - elipse(ea, eb).offset(-(P['ANEL_LED'] - w))
+    we = P['PAREDE_EXT']
+    c = elipse(ea, eb).offset(-we) - elipse(ea, eb).offset(-(P['ANEL_LED'] - w))
     c = c - rect(-bx, -110, bx, -60)            # para antes do berco nos dois lados
     # lado esquerdo: desce pela sola e sai pela base (x ~ -30)
     yb = -98.9; yt = -96.3
     c = c + rect(-bx-6, yb, -28.7, yt) + rect(-31.3, -102, -28.7, yt)
     # liga o anel (que entra na zona do berco em x=-bx) ao canal da sola
-    seg = (elipse(ea, eb).offset(-w) - elipse(ea, eb).offset(-(P['ANEL_LED'] - w)))
+    seg = (elipse(ea, eb).offset(-we) - elipse(ea, eb).offset(-(P['ANEL_LED'] - w)))
     c = c + (seg ^ rect(-bx-8, -110, -bx+0.01, -60))
     return c
 

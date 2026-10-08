@@ -25,7 +25,8 @@ COPO = json.load(open(os.path.join(os.path.dirname(__file__), 'copo_perfil.json'
 ALT_ASSENTO  = 4.5    # altura do abraco (a arte do copo comeca em ~4.8 mm)
 FOLGA_ASSENTO = 0.20  # folga radial no cone (abraco leve)
 CHAPA_COPO   = 0.0    # opcional: espessura de chapinha metalica sob o copo (so se usar imas)
-IMAS_ASSENTO = []   # opcional: [(-10, -9), (10, -9)] adiciona 2 imas no piso (porta que bate)
+R_IMA_COPO = 16.0   # raio dos imas: colados POR DENTRO do copo, no piso (1.3 mm), escondidos sob a vela
+IMAS_ASSENTO = [(R_IMA_COPO * math.cos(math.radians(a)), R_IMA_COPO * math.sin(math.radians(a))) for a in (30, 150, 270)]   # 3 pares de ima copo/berco
 R_BERCO    = 40.0
 FOLGA_FENDA = 0.25   # por lado
 # luz (versao LED)
@@ -115,9 +116,10 @@ def zona_livre(x, y):
 def luz_led(misto=False):
     ea, eb = P['ELIPSE_A'], P['ELIPSE_B']; w = P['ANEL_LED']
     jan_e, fur_e = [], []
-    for k, (x, y, nx, ny) in enumerate(pontos_anel(ea - w / 2, eb - w / 2, PASSO_ESTRELA)):
+    cc = P['PAREDE_EXT'] + (w - P['PAREDE_EXT'] - P['PAREDE_CAMARA']) / 2   # centro da camara
+    for k, (x, y, nx, ny) in enumerate(pontos_anel(ea - cc, eb - cc, PASSO_ESTRELA)):
         if not zona_livre(x, y): continue
-        R = 2.2 if k % 2 == 0 else 1.6
+        R = 2.0 if k % 2 == 0 else 1.5
         st = estrela4(x, y, R, R * 0.36, 0 if k % 2 == 0 else 45)
         modo = ('janela' if y > 0 else 'furo') if misto else MODO_ESTRELA
         (jan_e if modo == 'janela' else fur_e).append(st)
@@ -149,6 +151,13 @@ def metade(led, frente, misto=False):
         if est_j is not None: m = m - ext(est_j, t - PELE_LED - 0.05, t - PELE_JANELA)
         if est_f is not None: m = m - ext(est_f, -1, t + 1)
         if jan is not None and not jan.is_empty(): m = m - ext(jan, -1, 1.2)
+        # nervura (frente) x canaleta (verso) na parede externa: alinha as metades e veda a luz na emenda
+        nerv = (elipse(ea, eb).offset(-0.65) - elipse(ea, eb).offset(-1.15)) - rect(-46, -120, 46, -60) - rect(-12, 80, 12, 120)
+        can = (elipse(ea, eb).offset(-0.5) - elipse(ea, eb).offset(-1.3)) - rect(-46, -120, 46, -60) - rect(-12, 80, 12, 120)
+        if jan is not None and not jan.is_empty():
+            nerv = nerv - jan.offset(0.3); can = can - jan
+        if frente: m = m + ext(nerv, -0.8, 0.01)
+        else: m = m - ext(can, -1, 1.0)
         excl = anel + cam
     g = filete(art, excl)
     m = m - ext(g, t - FILETE['prof'], t + 1)
@@ -208,9 +217,9 @@ def assento(topo):
     prof = [(r_copo(max(zz - CHAPA_COPO, 0)) + FOLGA_ASSENTO, piso + zz)
             for zz in np.arange(0, ALT_ASSENTO - ch + 0.001, 0.25)]
     rt = prof[-1][0]
-    prof += [(rt + ch, topo), (rt + ch, topo + 1), (0, topo + 1), (0, piso)]
+    prof += [(rt + ch + 1, topo + 1), (0, topo + 1), (0, piso)]   # chanfro passa do topo: evita vertice coincidente
     cone = Manifold.revolve(CrossSection([prof]), 256)
-    imas = [Manifold.cylinder(IMA_H + 0.25, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, piso - IMA_H - 0.2]) for (u, v) in IMAS_ASSENTO]
+    imas = [Manifold.cylinder(IMA_H + 0.7, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, piso - IMA_H - 0.2]) for (u, v) in IMAS_ASSENTO]
     return cone, imas
 
 def disco_base(y_b, y_t):
@@ -324,5 +333,7 @@ for led in (False, True):
     for frente in (True, False):
         v = (ASM[(led, frente)] ^ d_asm).volume()
         chk[f'interf_berco_{"LED" if led else "SEM_LED"}_{"F" if frente else "V"}_mm3'] = round(v, 3)
+for led in (False, True):
+    chk['interf_entre_metades_' + ('LED' if led else 'SEM_LED') + '_mm3'] = round((ASM[(led, True)] ^ ASM[(led, False)]).volume(), 3)
 json.dump(dict(pecas=REL, verificacoes=chk), open(os.path.join(OUT, 'relatorio.json'), 'w'), indent=1, ensure_ascii=False)
 print(json.dumps(chk, indent=1))
