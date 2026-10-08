@@ -342,5 +342,14 @@ for led in (False, True):
         chk[f'interf_berco_{"LED" if led else "SEM_LED"}_{"F" if frente else "V"}_mm3'] = round(v, 3)
 for led in (False, True):
     chk['interf_entre_metades_' + ('LED' if led else 'SEM_LED') + '_mm3'] = round((ASM[(led, True)] ^ ASM[(led, False)]).volume(), 3)
+# pecas em posicao de montagem (para renders/conferencia)
+MONT = os.path.join(os.path.dirname(os.path.abspath(OUT)), 'montagem'); os.makedirs(MONT, exist_ok=True)
+def _salva_mont(m, nome):
+    me = m.to_mesh(); trimesh.Trimesh(me.vert_properties[:, :3], me.tri_verts, process=False).export(os.path.join(MONT, nome + '.stl'))
+for led in (False, True):
+    tg = 'LED' if led else 'SEM_LED'
+    _salva_mont(ASM[(led, True)], tg + '_arco_frente'); _salva_mont(ASM[(led, False)], tg + '_arco_verso')
+    d, y_b = BERCO[led]; _salva_mont(d.translate([0, 0, y_b]).rotate([-90, 0, 0]), tg + '_berco')
+json.dump(dict(y_piso_copo=yb_copo), open(os.path.join(MONT, 'posicoes.json'), 'w'))
 json.dump(dict(pecas=REL, verificacoes=chk), open(os.path.join(OUT, 'relatorio.json'), 'w'), indent=1, ensure_ascii=False)
 print(json.dumps(chk, indent=1))
