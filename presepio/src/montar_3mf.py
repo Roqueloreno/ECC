@@ -18,6 +18,8 @@ PERFIL = {
     'top_surface_pattern': 'monotonicline', 'elefant_foot_compensation': '0.15',
     'enable_support': '0', 'ironing_type': 'no ironing',
     'print_settings_id': 'Presepio v2 P1S 0.20',
+    # vinham do OrcaSlicer como '100%'; o Bambu Studio le como 100 mm e recusa o arquivo
+    'skeleton_infill_line_width': '0.45', 'skin_infill_line_width': '0.45',
 }
 
 # (arquivo STL, nome no Bambu, filamento 1=marfim 2=dourado, x, y, rotacao_z)
