@@ -298,6 +298,13 @@ for (u, v) in [(0, -24), (0, 24), (28, 18), (-28, 18)]:
     pl = pl - Manifold.cylinder(IMA_H + 0.2 + 1, IMA_D / 2 + 0.1, IMA_D / 2 + 0.1, 48).translate([u, v, H - 1.2 - IMA_H - 0.2])
 save(pl, 'COMUM_PLINTO_BANCADA_opcional')
 
+# gabarito: encaixa no piso interno do copo (livre Ø44.6) e posiciona os 3 imas a r=16 (mesmos angulos do berco)
+gab = Manifold.cylinder(1.6, 22.0, 22.0, 192)
+for (u, v) in IMAS_ASSENTO:
+    gab = gab - Manifold.cylinder(4, IMA_D / 2 + 0.25, IMA_D / 2 + 0.25, 48).translate([u, v, -1])
+gab = gab + Manifold.cylinder(9.6, 4.0, 3.0, 64)      # pegador central
+save(gab, 'COMUM_GABARITO_IMAS_COPO', dict(obs='coloque no fundo do copo, cole os imas pelos furos, retire'))
+
 # ---------------- testes ----------------
 h = ALT_ASSENTO + 1.2 + ((IMA_H + 0.6) if IMAS_ASSENTO else 0.4)
 anel = Manifold.cylinder(h, 37.0, 37.0, 256)

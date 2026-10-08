@@ -37,7 +37,8 @@ PLACAS = {
             ('COMUM_NO_LACO_original_imprimir_2x', 'NO_LACO_2', 1, 52, 60, 0),
             ('COMUM_PINO_LACO', 'PINO_LACO_1', 1, 80, 60, 0),
             ('COMUM_PINO_LACO', 'PINO_LACO_2', 1, 92, 60, 0),
-            ('COMUM_PINO_LACO', 'PINO_LACO_reserva', 1, 104, 60, 0)]),
+            ('COMUM_PINO_LACO', 'PINO_LACO_reserva', 1, 104, 60, 0),
+            ('COMUM_GABARITO_IMAS_COPO', 'GABARITO_IMAS_COPO', 1, 195, 50, 0)]),
         ('05 DOURADO - argola e estrela', [
             ('COMUM_ARGOLA_DOURADA_v2', 'ARGOLA_DOURADA', 2, 98, 128, 0),
             ('COMUM_ESTRELA_FRENTE_original', 'ESTRELA_FRENTE', 2, 130, 128, 0),
